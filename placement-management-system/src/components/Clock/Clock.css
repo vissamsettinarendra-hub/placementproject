@@ -1,0 +1,44 @@
+/* ==========================
+   Clock.css
+========================== */
+
+.clock {
+    width: 280px;
+    margin: 20px auto 35px;
+    padding: 18px;
+    text-align: center;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+    border-left: 5px solid #2563eb;
+}
+
+.clock h2:first-child {
+    font-size: 20px;
+    color: #1e3a8a;
+    margin-bottom: 12px;
+}
+
+.clock h2:last-child {
+    font-size: 32px;
+    font-weight: bold;
+    color: #16a34a;
+    letter-spacing: 2px;
+}
+
+@media (max-width: 768px) {
+
+    .clock {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .clock h2:first-child {
+        font-size: 18px;
+    }
+
+    .clock h2:last-child {
+        font-size: 28px;
+    }
+
+}

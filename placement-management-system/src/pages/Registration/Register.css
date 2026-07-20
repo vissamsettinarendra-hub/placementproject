@@ -1,0 +1,128 @@
+/* ==========================
+   Register.css
+========================== */
+
+.register {
+    max-width: 550px;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.register h1 {
+    text-align: center;
+    color: #1e3a8a;
+    margin-bottom: 30px ;
+    font-size: 32px;
+}
+
+.register form {
+    display: flex;
+    flex-direction: column;
+}
+
+.register input,
+.register select {
+    width: 100%;
+    padding: 13px 15px;
+    margin-bottom: 10px;
+    border: 2px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+    transition: 0.3s;
+    background: #ffffff;
+    box-sizing: border-box;
+}
+
+.register input:focus,
+.register select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 8px rgba(37, 99, 235, 0.25);
+}
+
+.register select {
+    cursor: pointer;
+}
+
+.error {
+    color: #dc2626;
+    font-size: 14px;
+    margin-bottom: 12px;
+    margin-left: 3px;
+    font-weight: 500;
+}
+
+.buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.buttons button {
+    flex: 1;
+    padding: 13px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.buttons button[type="submit"] {
+    background: #16a34a;
+}
+
+.buttons button[type="submit"]:hover {
+    background: #15803d;
+    transform: translateY(-2px);
+}
+
+.buttons button[type="button"] {
+    background: #dc2626;
+}
+
+.buttons button[type="button"]:hover {
+    background: #b91c1c;
+    transform: translateY(-2px);
+}
+
+.register a {
+    display: block;
+    text-align: center;
+    margin-top: 25px;
+    text-decoration: none;
+    color: #2563eb;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.register a:hover {
+    color: #1d4ed8;
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+
+    .register {
+        width: 90%;
+        padding: 25px;
+    }
+
+    .register h1 {
+        font-size: 28px;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+
+    .buttons button {
+        width: 100%;
+    }
+
+}

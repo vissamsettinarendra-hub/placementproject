@@ -1,0 +1,7 @@
+.main-content{
+    /* margin-left:240px;
+    margin-top:70px; */
+    min-height:calc(100vh - 70px);
+    display:flex;
+    /* flex-direction:column; */
+}

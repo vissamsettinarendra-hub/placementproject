@@ -1,0 +1,69 @@
+/* ==========================
+   CompanyTable.css
+========================== */
+
+table {
+    width: 100%;
+    margin-top: 25px;
+    border-collapse: collapse;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+thead {
+    background: #1e3a8a ;
+}
+
+thead th {
+    color: #ffffff;
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+}
+
+tbody td {
+    padding: 14px;
+    text-align: center;
+    font-size: 15px;
+    color: #444;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+tbody tr:nth-child(even) {
+    background: #f8fafc;
+}
+
+tbody tr:hover {
+    background: #dbeafe;
+    transition: 0.3s;
+}
+
+h3 {
+    text-align: center;
+    margin-top: 40px;
+    color: #ef4444;
+    font-size: 24px;
+}
+
+@media (max-width: 992px) {
+
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+}
+
+@media (max-width: 768px) {
+
+    thead th,
+    tbody td {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+}
