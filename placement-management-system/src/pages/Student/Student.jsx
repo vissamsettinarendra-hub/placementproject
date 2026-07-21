@@ -1,31 +1,43 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import StudentTable from "../Students/StudentTable";
-import "./Student.css";
 import api from "../../api/api";
+import "./Student.css";
 
-function Students() {
-
+function Student() {
+    const [sortField,setSortField] = useState("studentname")
+    const [order,setOrder]=useState("asc");
     const [students, setStudents] = useState([]);
     const [loading, setLoading] = useState(true);
+
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+
     const [search, setSearch] = useState("");
 
-    
-    async function fetchStudents() {
+    const limit = 5;
+
+    useEffect(() => {
+        fetchStudents(1);
+    }, []);
+
+    async function fetchStudents(pageNumber = 1) {
 
         try {
 
             setLoading(true);
 
-            const response = await api.get("/students");
+            const response = await api.get(
+                `/students?page=${pageNumber}&limit=${limit}&sort=${sortField}&order=${order}`);
 
             setStudents(response.data.students);
+            setPage(response.data.currentPage);
+            setTotalPages(response.data.totalPages);
 
         } catch (error) {
 
             console.log(error);
-
-            alert("Failed to fetch students.");
+            alert("Failed to fetch students");
 
         } finally {
 
@@ -35,13 +47,33 @@ function Students() {
 
     }
 
-    useEffect(() => {
+    async function searchStudents(value) {
 
-        fetchStudents();
+        setSearch(value);
 
-    }, []);
+        if (value.trim() === "") {
 
-   
+            fetchStudents(1);
+            return;
+
+        }
+
+        try {
+
+            const response = await api.get(
+                `/students/search?q=${value}`
+            );
+
+            setStudents(response.data.students);
+
+        } catch (error) {
+
+            console.log(error);
+
+        }
+
+    }
+
     async function deleteStudent(id) {
 
         const confirmDelete = window.confirm(
@@ -56,147 +88,86 @@ function Students() {
 
             alert(response.data.message);
 
-            fetchStudents();
+            fetchStudents(page);
 
         } catch (error) {
 
             console.log(error);
 
-            alert(error.response?.data?.message || "Delete Failed");
+            alert(
+                error.response?.data?.message ||
+                "Delete Failed"
+            );
 
         }
 
     }
-
-    const filteredStudents = students.filter((student) => {
-
-        return (
-
-            student.studentName
-                .toLowerCase()
-                .includes(search.toLowerCase()) ||
-
-            student.rollno
-                .toString()
-                .includes(search) ||
-
-            student.email
-                .toLowerCase()
-                .includes(search.toLowerCase()) ||
-
-            student.branch
-                .toLowerCase()
-                .includes(search.toLowerCase())
-
-        );
-
-    });
-    async function fetchStudent(){
-        try{
-            const response = await api.get(`/students/${id}`);
-            const student =  response.data.student;
-            setStudentName(student.studentName);
-            setEmail(student.email);
-            setBranch(student.branch);
-            setCgpa(student.cgpa);
-        }
-        catch(error){
-            console.log(error)
-        }
-        useEffect(()=>{
-            updateStudent
-        },[])
-    }
-        
-    
-
-    async function updateStudent(e) {
-
-    e.preventDefault();
-
-    const student = {
-        studentName,
-        rollno: Number(rollno),
-        email,
-        phone,
-        branch,
-        cgpa: Number(cgpa),
-        year: Number(year),
-    };
-
-    try {
-
-        if (id) {
-
-            const response = await api.put(`/students/${id}`, student);
-
-            alert(response.data.message);
-
-        } else {
-
-            const response = await api.post("/students", student);
-
-            alert(response.data.message);
-
-        }
-
-        navigate("/Student");
-
-    } catch (error) {
-
-        console.log(error);
-
-        alert(error.response?.data?.message || "Something went wrong");
-
-    }
-
-}
 
     if (loading) {
-
         return <h2>Loading Students...</h2>;
-
     }
-    
+
     return (
 
         <div className="student-page">
 
-            <h1>Student Management</h1>
-
-            <p>Manage all registered students here.</p>
-
             <div className="student-header">
 
+                <div>
+                    <h1>Student Management</h1>
+                    <p>Manage all registered students.</p>
+                </div>
+
                 <Link to="/Register">
-
                     <button className="add-btn">
-
-                        + Add New Student
-
+                        + Add Student
                     </button>
-
                 </Link>
-
-                <input
-                    type="text"
-                    className="search-bar"
-                    placeholder="🔍 Search by Name, Roll No, Email, Branch"
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                />
 
             </div>
 
+            <input
+                type="text"
+                className="search-bar"
+                placeholder="Search Student..."
+                value={search}
+                onChange={(e) => searchStudents(e.target.value)}
+            />
+
             <StudentTable
-                students={filteredStudents}
+                students={students}
                 deleteStudent={deleteStudent}
             />
+
+            {/* Pagination */}
+
+            {search === "" && (
+                <div className="pagination">
+
+                    <button
+                        disabled={page === 1}
+                        onClick={() => fetchStudents(page - 1)}
+                    >
+                        ◀ Previous
+                    </button>
+
+                    <span>
+                        Page {page} of {totalPages}
+                    </span>
+
+                    <button
+                        disabled={page === totalPages}
+                        onClick={() => fetchStudents(page + 1)}
+                    >
+                        Next ▶
+                    </button>
+
+                </div>
+            )}
 
         </div>
 
     );
-
 }
 
-export default Students;
+export default Student;
