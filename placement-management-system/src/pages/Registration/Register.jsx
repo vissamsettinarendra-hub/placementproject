@@ -1,7 +1,7 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
-import "./Register.css";
 import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import api from "../../api/api";
+import "./Register.css";
 
 function Register() {
 
@@ -16,24 +16,23 @@ function Register() {
     const [cgpa, setCgpa] = useState("");
     const [year, setYear] = useState("");
 
-    const [errors, setErrors] = useState({});
+    const [loading, setLoading] = useState(false);
 
-    // Load Student for Edit
     useEffect(() => {
 
         if (id) {
-            getStudent();
+            fetchStudent();
         }
 
     }, [id]);
 
-    async function getStudent() {
+    async function fetchStudent() {
 
         try {
 
             const response = await api.get(`/students/${id}`);
 
-            const student = response.data;
+            const student = response.data.student;
 
             setStudentName(student.studentName);
             setRollno(student.rollno);
@@ -47,6 +46,8 @@ function Register() {
 
             console.log(error);
 
+            alert("Failed to load student");
+
         }
 
     }
@@ -55,6 +56,19 @@ function Register() {
 
         e.preventDefault();
 
+        if (
+            !studentName ||
+            !rollno ||
+            !email ||
+            !phone ||
+            !branch ||
+            !cgpa ||
+            !year
+        ) {
+            alert("Please fill all fields");
+            return;
+        }
+
         const student = {
             studentName,
             rollno: Number(rollno),
@@ -62,10 +76,12 @@ function Register() {
             phone,
             branch,
             cgpa: Number(cgpa),
-            year: Number(year)
+            year: Number(year),
         };
 
         try {
+
+            setLoading(true);
 
             if (id) {
 
@@ -73,8 +89,7 @@ function Register() {
 
                 alert(response.data.message);
 
-            }
-            else {
+            } else {
 
                 const response = await api.post("/students", student);
 
@@ -88,7 +103,14 @@ function Register() {
 
             console.log(error);
 
-            alert(error.response?.data?.message || "Something went wrong");
+            alert(
+                error.response?.data?.message ||
+                "Something went wrong"
+            );
+
+        } finally {
+
+            setLoading(false);
 
         }
 
@@ -103,7 +125,6 @@ function Register() {
         setBranch("");
         setCgpa("");
         setYear("");
-        setErrors({});
 
     }
 
@@ -112,7 +133,7 @@ function Register() {
         <div className="register">
 
             <h1>
-                {id ? "Edit Student" : "Student Registration"}
+                {id ? "Update Student" : "Student Registration"}
             </h1>
 
             <form onSubmit={handleSubmit}>
@@ -121,93 +142,98 @@ function Register() {
                     type="text"
                     placeholder="Student Name"
                     value={studentName}
-                    onChange={(e) => setStudentName(e.target.value)}
+                    onChange={(e) =>
+                        setStudentName(e.target.value)
+                    }
                 />
 
                 <input
                     type="number"
                     placeholder="Roll Number"
                     value={rollno}
-                    onChange={(e) => setRollno(e.target.value)}
+                    onChange={(e) =>
+                        setRollno(e.target.value)
+                    }
                 />
 
                 <input
                     type="email"
                     placeholder="Email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) =>
+                        setEmail(e.target.value)
+                    }
                 />
 
                 <input
                     type="text"
                     placeholder="Phone Number"
                     value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
+                    onChange={(e) =>
+                        setPhone(e.target.value)
+                    }
                 />
 
                 <select
                     value={branch}
-                    onChange={(e) => setBranch(e.target.value)}
+                    onChange={(e) =>
+                        setBranch(e.target.value)
+                    }
                 >
-
                     <option value="">Select Branch</option>
                     <option value="CSE">CSE</option>
                     <option value="CSE-AI">CSE-AI</option>
                     <option value="CSE-DS">CSE-DS</option>
                     <option value="CSE-CS">CSE-CS</option>
                     <option value="ECE">ECE</option>
-
                 </select>
 
                 <input
                     type="number"
+                    step="0.01"
                     placeholder="CGPA"
                     value={cgpa}
-                    onChange={(e) => setCgpa(e.target.value)}
-                    step="0.01"
-                    min="0"
-                    max="10"
+                    onChange={(e) =>
+                        setCgpa(e.target.value)
+                    }
                 />
 
                 <select
                     value={year}
-                    onChange={(e) => setYear(e.target.value)}
+                    onChange={(e) =>
+                        setYear(e.target.value)
+                    }
                 >
-
                     <option value="">Select Year</option>
                     <option value="1">1st Year</option>
                     <option value="2">2nd Year</option>
                     <option value="3">3rd Year</option>
                     <option value="4">4th Year</option>
-
                 </select>
 
                 <div className="buttons">
 
-                    <button type="submit">
-
-                        {id ? "Update Student" : "Register"}
-
+                    <button
+                        type="submit"
+                        disabled={loading}
+                    >
+                        {loading
+                            ? "Please Wait..."
+                            : id
+                                ? "Update Student"
+                                : "Register Student"}
                     </button>
 
                     <button
                         type="button"
                         onClick={handleReset}
                     >
-
                         Reset
-
                     </button>
 
                 </div>
 
             </form>
-
-            <Link to="/Login">
-
-                Already have an account? Login
-
-            </Link>
 
         </div>
 
