@@ -1,64 +1,103 @@
-.student-page {
-    width: 100%;
+/* ===============================
+   Student.css
+================================== */
+
+.student-page{
+
+    padding:30px;
+
+    background:#f8fafc;
+
+    min-height:100vh;
+
 }
 
-.student-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 25px 0;
-    gap: 20px;
-    flex-wrap: wrap;
+.student-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+
 }
 
-.add-btn {
-    padding: 12px 22px;
-    border: none;
-    border-radius: 8px;
-    background: #2563eb;
-    color: #fff;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: .3s;
+.student-header h1{
+
+    color:#1e293b;
+
+    margin-bottom:5px;
+
 }
 
-.add-btn:hover {
-    background: #1d4ed8;
+.student-header p{
+
+    color:#64748b;
+
 }
 
-.search-bar {
-    width: 320px;
-    padding: 12px 18px;
-    border: 2px solid #d1d5db;
-    border-radius: 8px;
-    outline: none;
-    font-size: 15px;
-    transition: .3s ;
+.add-btn{
+
+    padding:12px 20px;
+
+    background:#2563eb;
+
+    color:white;
+
+    border:none;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    transition:.3s;
+
 }
 
-.search-bar:focus {
-    border-color: #2563eb;
-    box-shadow: 0 0 8px rgba(37, 99, 235, 0.25);
+.add-btn:hover{
+
+    background:#1d4ed8;
+
 }
 
-.search-bar::placeholder {
-    color: #6b7280;
+.search-bar{
+
+    width:100%;
+
+    padding:13px 18px;
+
+    margin-bottom:25px;
+
+    border:1px solid #cbd5e1;
+
+    border-radius:8px;
+
+    font-size:15px;
+
 }
 
-@media (max-width: 768px) {
+.search-bar:focus{
 
-    .student-header {
-        flex-direction: column;
-        align-items: stretch;
-    }
+    outline:none;
 
-    .search-bar {
-        width: 100%;
-    }
+    border-color:#2563eb;
 
-    .add-btn {
-        width: 100%;
-    }
+}
+
+@media(max-width:768px){
+
+.student-header{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+gap:15px;
+
+}
 
 }
