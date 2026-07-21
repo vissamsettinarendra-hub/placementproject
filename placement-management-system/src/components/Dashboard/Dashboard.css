@@ -1,130 +1,122 @@
-/* ==========================
-   Dashboard.css
-========================== */
-
 .dashboard {
-    flex: 1;
-    margin-left: 100px;
     padding: 30px;
     background: #f4f7fc;
-    min-height: calc(100vh - 70px);
+    min-height: 100vh;
 }
-
-/* Heading */
 
 .dashboard h1 {
-    text-align: center;
-    color: #1e3a8a;
-    font-size: 38px;
-    margin-bottom: 25px;
+    font-size: 32px;
+    color: #222;
+    margin-bottom: 20px;
 }
 
-/* Wave Animation */
-
 .wave {
-    display: inline-block;
-    animation: wave 2s infinite;
+    animation: wave 1.5s infinite;
 }
 
 @keyframes wave {
-
     0% {
         transform: rotate(0deg);
     }
 
-    20% {
-        transform: rotate(18deg);
+    25% {
+        transform: rotate(20deg);
     }
 
-    40% {
-        transform: rotate(-10deg);
+    50% {
+        transform: rotate(0deg);
     }
 
-    60% {
-        transform: rotate(18deg);
+    75% {
+        transform: rotate(-20deg);
     }
 
     100% {
         transform: rotate(0deg);
     }
-
 }
 
-/* Name Box */
+/* Welcome Box */
 
 .welcome-box {
     display: flex;
-    justify-content: center;
-    align-items: center;
     gap: 15px;
-    margin: 30px 0;
+    margin: 25px 0;
     flex-wrap: wrap;
 }
 
 .name-input {
-    width: 300px;
-    padding: 12px 15px;
-    border: 2px solid #2563eb;
+    flex: 1;
+    min-width: 250px;
+    padding: 12px;
+    border: 1px solid #d1d5db;
     border-radius: 8px;
-    font-size: 15px;
     outline: none;
-    transition: 0.3s;
+    font-size: 15px;
 }
 
 .name-input:focus {
-    border-color: #1d4ed8;
-    box-shadow: 0 0 8px rgba(37, 99, 235, .3);
+    border-color: #2563eb;
 }
 
 .name-btn {
-    padding: 12px 20px;
+    padding: 12px 22px;
     border: none;
     border-radius: 8px;
     background: #2563eb;
-    color: white;
+    color: #fff;
     font-size: 15px;
     cursor: pointer;
-    transition: .3s;
+    transition: 0.3s;
 }
 
 .name-btn:hover {
     background: #1d4ed8;
-    transform: translateY(-2px);
 }
 
-/* Dashboard Cards */
+/* Cards */
 
 .cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
     gap: 25px;
-    margin-top: 40px;
+    margin-top: 30px;
 }
 
-/* Card */
-
 .card {
-    background: white;
-    border-radius: 15px;
+    background: #fff;
     padding: 30px 20px;
+    border-radius: 15px;
     text-align: center;
-    box-shadow: 0 8px 20px rgba(0,0,0,.08);
-    transition: .3s;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    transition: 0.3s;
+    cursor: pointer;
 }
 
 .card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 12px 25px rgba(0,0,0,.15);
 }
 
-/* Different Card Colors */
+.card h2 {
+    font-size: 42px;
+    margin-bottom: 12px;
+    color: #111827;
+}
+
+.card p {
+    font-size: 17px;
+    font-weight: 600;
+    color: #6b7280;
+}
+
+/* Different Colors */
 
 .students {
     border-top: 6px solid #2563eb;
 }
 
 .companies {
-    border-top: 6px solid #22c55e;
+    border-top: 6px solid #10b981;
 }
 
 .placed {
@@ -135,87 +127,39 @@
     border-top: 6px solid #ef4444;
 }
 
-.card h2 {
-    font-size: 42px;
-    color: #1e3a8a;
-    margin-bottom: 10px;
-}
+/* Loading */
 
-.card p {
-    color: #555;
-    font-size: 18px;
-    margin-bottom: 20px;
-}
-
-/* Buttons */
-
-.btn-group {
+.loading {
     display: flex;
-    gap: 10px;
-}
-
-.add,
-.sub {
-    flex: 1;
-    border: none;
-    border-radius: 8px;
-    padding: 10px;
-    color: white;
-    font-size: 15px;
-    cursor: pointer;
-    transition: .3s;
-}
-
-.add {
-    background: #22c55e;
-}
-
-.add:hover {
-    background: #16a34a;
-}
-
-.sub {
-    background: #ef4444;
-}
-
-.sub:hover {
-    background: #dc2626;
-}
-
-.add:active,
-.sub:active,
-.name-btn:active {
-    transform: scale(.95);
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    font-size: 30px;
+    font-weight: bold;
+    color: #2563eb;
 }
 
 /* Responsive */
 
-@media (max-width: 768px) {
+@media (max-width:768px) {
 
     .dashboard {
-        margin-left: 220px;
         padding: 20px;
     }
 
     .dashboard h1 {
-        font-size: 30px;
-    }
-
-    .welcome-box {
-        flex-direction: column;
-    }
-
-    .name-input,
-    .name-btn {
-        width: 100%;
+        font-size: 24px;
     }
 
     .cards {
         grid-template-columns: 1fr;
     }
 
-    .btn-group {
+    .welcome-box {
         flex-direction: column;
     }
 
+    .name-btn {
+        width: 100%;
+    }
 }
