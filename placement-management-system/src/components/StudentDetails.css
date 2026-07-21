@@ -1,72 +1,32 @@
-/* ==========================
-   StudentTable.css
-========================== */
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 25px;
-    background: #ffffff;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+.student-details {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.1);
 }
 
-thead {
-    background: #1e3a8a;
+.student-details h1 {
+    margin-bottom: 20px;
+    color: #2563eb;
 }
 
-thead th {
+.student-details p {
+    margin: 12px 0;
+    font-size: 17px;
+}
+
+.view-btn {
+    background: #10b981;
     color: white;
-    padding: 14px;
-    font-size: 16px;
-    text-align: center;
-}
-
-tbody td {
-    padding: 14px;
-    text-align: center;
-    border-bottom: 1px solid #e5e7eb;
-    color: #333;
-    font-size: 15px;
-}
-
-tbody tr:nth-child(even) {
-    background: #f8fafc;
-}
-
-tbody tr:hover {
-    background: #e0f2fe;
-    transition: 0.3s;
-}
-
-tbody a {
-    text-decoration: none;
-    background: #2563eb;
-    color: white;
-    padding: 7px 14px;
+    border: none;
+    padding: 8px 14px;
+    margin-right: 6px;
     border-radius: 6px;
-    font-size: 14px;
-    transition: 0.3s;
+    cursor: pointer;
 }
 
-tbody a:hover {
-    background: #1d4ed8;
-}
-
-h3 {
-    margin-top: 30px;
-    text-align: center;
-    color: #dc2626;
-    font-size: 24px;
-}
-
-@media (max-width: 992px) {
-
-    table {
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
-    }
-
+.view-btn:hover {
+    background: #059669;
 }
