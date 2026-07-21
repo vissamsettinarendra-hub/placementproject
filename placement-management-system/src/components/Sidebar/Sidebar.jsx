@@ -7,43 +7,60 @@ function Sidebar() {
 
     function handleLogout() {
 
+        const confirmLogout = window.confirm(
+            "Are you sure you want to logout?"
+        );
+
+        if (!confirmLogout) return;
+
+        // Remove Login Data
+        localStorage.removeItem("token");
         localStorage.removeItem("isLoggedIn");
 
-        window.location.href = "/Login" ;
+        // Redirect to Login Page
+        navigate("/Login");
+
     }
 
     return (
 
         <aside className="sidebar">
 
-            <ul>
+            <div className="sidebar-logo">
+                <h2>🎓 PMS</h2>
+            </div>
 
-                <NavLink to="/Dashboard">
+            <ul className="sidebar-menu">
+
+                <NavLink
+                    to="/Dashboard"
+                    className={({ isActive }) =>
+                        isActive ? "active-link" : ""
+                    }
+                >
                     <li>🏠 Dashboard</li>
                 </NavLink>
 
-                <NavLink to="/Student">
+                <NavLink
+                    to="/Student"
+                    className={({ isActive }) =>
+                        isActive ? "active-link" : ""
+                    }
+                >
                     <li>🎓 Students</li>
                 </NavLink>
 
-                <NavLink to="/Companies">
+                <NavLink
+                    to="/Companies"
+                    className={({ isActive }) =>
+                        isActive ? "active-link" : ""
+                    }
+                >
                     <li>🏢 Companies</li>
                 </NavLink>
 
-                <NavLink to="/Placements">
-                    <li>💼 Placements</li>
-                </NavLink>
-
-                <NavLink to="/Reports">
-                    <li>📊 Reports</li>
-                </NavLink>
-
-                <NavLink to="/Settings">
-                    <li>⚙️ Settings</li>
-                </NavLink>
-
                 <li
-                    className="logout"
+                    className="logout-btn"
                     onClick={handleLogout}
                 >
                     🚪 Logout
