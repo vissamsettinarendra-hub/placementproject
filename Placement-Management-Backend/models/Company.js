@@ -33,7 +33,7 @@ const companySchema = new mongoose.Schema(
 
         lastDate: {
             type: Date,
-            required: true,
+            required: true ,
         },
     },
     {
