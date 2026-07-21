@@ -1,123 +1,75 @@
-import "./Login.css";
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import api from "../../api/api";
+import "./Login.css";
 
 function Login() {
-
     const navigate = useNavigate();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [showPassword, setShowPassword] = useState(false);
-    const [message, setMessage] = useState("");
-    const [loading, setLoading] = useState(false) ;
+    const [loading, setLoading] = useState(false);
 
-    function handleLogin() {
+    async function handleLogin(e) {
+        e.preventDefault();
 
-        if (email.trim() === "" || password.trim() === "") {
-            setMessage("Please enter Email and Password.");
+        if (!email || !password) {
+            alert("Please enter Email and Password");
             return;
         }
 
-        setLoading(true);
-        setMessage("");
+        try {
+            setLoading(true);
 
-        setTimeout(() => {
+            const response = await api.post("/admin/login", {
+                email,
+                password,
+            });
 
-            if (
-    email === "admin@gmail.com" &&
-    password === "admin123"
-) {
+            localStorage.setItem("token", response.data.token);
+            localStorage.setItem("isLoggedIn", "true");
 
-    localStorage.setItem("isLoggedIn", "true");
+            alert("Login Successful");
 
-    setMessage("Login Successful!");
+            navigate("/Dashboard", { replace: true });
 
-    window.location.href = "/Dashboard";
+        } catch (error) {
+            console.log(error);
 
-} else {
-
-    localStorage.removeItem("isLoggedIn");
-
-    setMessage("Invalid Email or Password");
-
-}
-
+            alert(
+                error.response?.data?.message ||
+                "Invalid Email or Password"
+            );
+        } finally {
             setLoading(false);
-
-        }, 2000);
+        }
     }
 
     return (
+        <div className="login-container">
+            <form className="login-form" onSubmit={handleLogin}>
 
-        <div className="login">
+                <h2>Admin Login</h2>
 
-            <h1>Placement Management Login</h1>
+                <input
+                    type="email"
+                    placeholder="Enter Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
 
-            <input
-                type="email"
-                placeholder="Enter Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-            />
+                <input
+                    type="password"
+                    placeholder="Enter Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
 
-            <br /><br />
+                <button type="submit" disabled={loading}>
+                    {loading ? "Logging In..." : "Login"}
+                </button>
 
-            <input
-                type={showPassword ? "text" : "password"}
-                placeholder="Enter Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            />
-
-            <br /><br />
-
-            <button
-                type="button"
-                className="show-btn"
-                onClick={() => setShowPassword(!showPassword)}
-            >
-                {showPassword ? "Hide Password" : "Show Password"}
-            </button>
-
-            <br /><br />
-
-            {
-                loading ? (
-
-                    <button
-                        className="login-btn"
-                        disabled
-                    >
-                        Loading...
-                    </button>
-
-                ) : (
-
-                    <button
-                        className="login-btn"
-                        onClick={handleLogin}
-                    >
-                        Login
-                    </button>
-
-                )
-            }
-
-            <br /><br />
-
-            <Link to="/Register">
-                Don't have an account? Register
-            </Link>
-
-            {
-                message && (
-                    <p className="message">
-                        {message}
-                    </p>
-                )
-            }
-
+            </form>
         </div>
     );
 }
