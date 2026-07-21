@@ -53,7 +53,7 @@ export const loginAdmin = async (req, res) => {
         if (!admin) {
 
             return res.status(400).json({
-                message: "Invalid Email",
+                message: "Invalid Email" ,
             });
 
         }
