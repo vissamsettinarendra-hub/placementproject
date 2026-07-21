@@ -3,40 +3,47 @@ import "./StudentTable.css";
 
 function StudentTable({ students, deleteStudent }) {
 
+    if (students.length === 0) {
+        return (
+            <h2 className="no-data">
+                No Students Found
+            </h2>
+        );
+    }
+
     return (
-        students.length === 0 ? (
 
-            <h3 className="no-data">No Students Registered</h3>
-
-        ) : (
+        <div className="table-container">
 
             <table className="student-table">
 
                 <thead>
+
                     <tr>
                         <th>S.No</th>
-                        <th>Student Name</th>
+                        <th>Name</th>
                         <th>Roll No</th>
                         <th>Email</th>
-                        <th>Password</th>
+                        <th>Phone</th>
                         <th>Branch</th>
                         <th>CGPA</th>
                         <th>Year</th>
                         <th>Actions</th>
                     </tr>
+
                 </thead>
 
                 <tbody>
 
-                    {students.map((student, _id) => (
+                    {students.map((student, index) => (
 
                         <tr key={student._id}>
 
-                            <td>{student._id + 1}</td>
+                            <td>{index + 1}</td>
                             <td>{student.studentName}</td>
-                            <td>{student.rollNo}</td>
+                            <td>{student.rollno}</td>
                             <td>{student.email}</td>
-                            <td>{student.password}</td>
+                            <td>{student.phone}</td>
                             <td>{student.branch}</td>
                             <td>{student.cgpa}</td>
                             <td>{student.year}</td>
@@ -44,12 +51,12 @@ function StudentTable({ students, deleteStudent }) {
                             <td className="action-buttons">
 
                                 <Link to={`/Students/${student._id}`}>
-                                    <button className="view-btn">
-                                        View
-                                    </button>
+                                <button className="view-btn">
+                                View
+                                </button>
                                 </Link>
 
-                                <Link to={`/Register/${student._id}`}>
+                                <Link to={`/EditStudent/${student._id}`}>
                                     <button className="edit-btn">
                                         Edit
                                     </button>
@@ -57,15 +64,7 @@ function StudentTable({ students, deleteStudent }) {
 
                                 <button
                                     className="delete-btn"
-                                    onClick={() => {
-                                        if (
-                                            window.confirm(
-                                                "Are you sure you want to delete this student?"
-                                            )
-                                        ) {
-                                            deleteStudent(student._id);
-                                        }
-                                    }}
+                                    onClick={() => deleteStudent(student._id)}
                                 >
                                     Delete
                                 </button>
@@ -80,8 +79,10 @@ function StudentTable({ students, deleteStudent }) {
 
             </table>
 
-        )
+        </div>
+
     );
+
 }
 
 export default StudentTable;
