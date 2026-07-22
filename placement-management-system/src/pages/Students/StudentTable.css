@@ -113,3 +113,39 @@
     color:#64748b;
 
 }
+.student-image{
+    width:60px;
+    height:60px;
+    object-fit:cover;
+    border-radius:50%;
+    border:2px solid #ddd;
+}
+
+.action-buttons{
+    display:flex;
+    gap:8px;
+    justify-content:center;
+}
+
+.view-btn,
+.edit-btn,
+.delete-btn{
+    padding:6px 12px;
+    border:none;
+    border-radius:5px;
+    color:#fff;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.view-btn{
+    background:#0ea5e9;
+}
+
+.edit-btn{
+    background:#f59e0b;
+}
+
+.delete-btn{
+    background:#ef4444;
+}
