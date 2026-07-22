@@ -1,31 +1,53 @@
-import express, { request, response } from "express";
-import { getStudents,getStudentsById,addStudent,updateStudent,deleteStudent,searchStudents } from "../controllers/studentController.js";
+import express from "express";
+import {
+    getStudents,
+    getStudentsById,
+    addStudent,
+    updateStudent,
+    deleteStudent,
+    searchStudents,
+} from "../controllers/studentController.js";
 
-//router object 
-const router = express.Router()
-//students/
-// router.get("/",(request,response)=>
-// {
-//     response.send("I am in routes")
-// })
+import upload from "../middleware/upload.js";
 
+const router = express.Router();
 
-//GEt all the students
-router.get("/",getStudents);
+// ======================
+// Get All Students
+// ======================
+router.get("/", getStudents);
 
-
-//searching route
+// ======================
+// Search Students
+// ======================
 router.get("/search", searchStudents);
 
-//get student by id
-router.get("/:id",getStudentsById);
-//post adding the student
-router.post("/",addStudent);
-//put updating the student
-router.put("/:id",updateStudent);
-//delete deleting the student
-router.delete("/:id",deleteStudent);
+// ======================
+// Get Student By ID
+// ======================
+router.get("/:id", getStudentsById);
 
+// ======================
+// Add Student
+// ======================
+router.post(
+    "/",
+    upload.single("image"),
+    addStudent
+);
 
+// ======================
+// Update Student
+// ======================
+router.put(
+    "/:id",
+    upload.single("image"),
+    updateStudent
+);
 
-export default router
+// ======================
+// Delete Student
+// ======================
+router.delete("/:id", deleteStudent);
+
+export default router;
