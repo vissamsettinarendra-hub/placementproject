@@ -29,7 +29,7 @@ function Login() {
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("isLoggedIn", "true");
 
-            alert("Login Successful");
+            alert(response.data.message || "Login Successful");
 
             navigate("/Dashboard", { replace: true });
 
@@ -40,6 +40,7 @@ function Login() {
                 error.response?.data?.message ||
                 "Invalid Email or Password"
             );
+
         } finally {
             setLoading(false);
         }
@@ -47,8 +48,10 @@ function Login() {
 
     return (
         <div className="login-container">
-            <form className="login-form" onSubmit={handleLogin}>
-
+            <form
+                className="login-form"
+                onSubmit={handleLogin}
+            >
                 <h2>Admin Login</h2>
 
                 <input
@@ -65,10 +68,12 @@ function Login() {
                     onChange={(e) => setPassword(e.target.value)}
                 />
 
-                <button type="submit" disabled={loading}>
+                <button
+                    type="submit"
+                    disabled={loading}
+                >
                     {loading ? "Logging In..." : "Login"}
                 </button>
-
             </form>
         </div>
     );
