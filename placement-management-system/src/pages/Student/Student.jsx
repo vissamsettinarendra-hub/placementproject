@@ -5,8 +5,7 @@ import api from "../../api/api";
 import "./Student.css";
 
 function Student() {
-    const [sortField,setSortField] = useState("studentname")
-    const [order,setOrder]=useState("asc");
+
     const [students, setStudents] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -15,11 +14,15 @@ function Student() {
 
     const [search, setSearch] = useState("");
 
+    // Sorting
+    const [sortField, setSortField] = useState("studentName");
+    const [order, setOrder] = useState("asc");
+
     const limit = 5;
 
     useEffect(() => {
-        fetchStudents(1);
-    }, []);
+        fetchStudents(page);
+    }, [page, sortField, order]);
 
     async function fetchStudents(pageNumber = 1) {
 
@@ -28,7 +31,8 @@ function Student() {
             setLoading(true);
 
             const response = await api.get(
-                `/students?page=${pageNumber}&limit=${limit}&sort=${sortField}&order=${order}`);
+                `/students?page=${pageNumber}&limit=${limit}&sort=${sortField}&order=${order}`
+            );
 
             setStudents(response.data.students);
             setPage(response.data.currentPage);
@@ -60,9 +64,7 @@ function Student() {
 
         try {
 
-            const response = await api.get(
-                `/students/search?q=${value}`
-            );
+            const response = await api.get(`/students/search?q=${value}`);
 
             setStudents(response.data.students);
 
@@ -126,6 +128,8 @@ function Student() {
 
             </div>
 
+            {/* Search */}
+
             <input
                 type="text"
                 className="search-bar"
@@ -134,19 +138,47 @@ function Student() {
                 onChange={(e) => searchStudents(e.target.value)}
             />
 
+            {/* Sorting */}
+
+            <div className="sort-box">
+
+                <select
+                    value={sortField}
+                    onChange={(e) => setSortField(e.target.value)}
+                >
+                    <option value="studentName">Student Name</option>
+                    <option value="rollno">Roll Number</option>
+                    <option value="branch">Branch</option>
+                    <option value="cgpa">CGPA</option>
+                    <option value="year">Year</option>
+                </select>
+
+                <select
+                    value={order}
+                    onChange={(e) => setOrder(e.target.value)}
+                >
+                    <option value="asc">Ascending</option>
+                    <option value="desc">Descending</option>
+                </select>
+
+            </div>
+
             <StudentTable
                 students={students}
                 deleteStudent={deleteStudent}
+                page={page}
+                limit={limit}
             />
 
             {/* Pagination */}
 
             {search === "" && (
+
                 <div className="pagination">
 
                     <button
                         disabled={page === 1}
-                        onClick={() => fetchStudents(page - 1)}
+                        onClick={() => setPage(page - 1)}
                     >
                         ◀ Previous
                     </button>
@@ -157,17 +189,19 @@ function Student() {
 
                     <button
                         disabled={page === totalPages}
-                        onClick={() => fetchStudents(page + 1)}
+                        onClick={() => setPage(page + 1)}
                     >
                         Next ▶
                     </button>
 
                 </div>
+
             )}
 
         </div>
 
     );
+
 }
 
 export default Student;
