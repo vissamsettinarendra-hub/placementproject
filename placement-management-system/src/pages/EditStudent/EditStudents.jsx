@@ -15,6 +15,10 @@ function EditStudent() {
     const [branch, setBranch] = useState("");
     const [cgpa, setCgpa] = useState("");
     const [year, setYear] = useState("");
+
+    const [image, setImage] = useState(null);
+    const [preview, setPreview] = useState("");
+
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -36,6 +40,12 @@ function EditStudent() {
             setBranch(student.branch);
             setCgpa(student.cgpa);
             setYear(student.year);
+
+            if (student.image) {
+                setPreview(
+                    `http://localhost:8000/uploads/${student.image}`
+                );
+            }
 
         } catch (error) {
 
@@ -67,21 +77,28 @@ function EditStudent() {
 
             setLoading(true);
 
-            const updatedStudent = {
+            const formData = new FormData();
 
-                studentName,
-                rollno: Number(rollno),
-                email,
-                phone,
-                branch,
-                cgpa: Number(cgpa),
-                year: Number(year),
+            formData.append("studentName", studentName);
+            formData.append("rollno", rollno);
+            formData.append("email", email);
+            formData.append("phone", phone);
+            formData.append("branch", branch);
+            formData.append("cgpa", cgpa);
+            formData.append("year", year);
 
-            };
+            if (image) {
+                formData.append("image", image);
+            }
 
             const response = await api.put(
                 `/students/${id}`,
-                updatedStudent
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
             );
 
             alert(response.data.message);
@@ -115,29 +132,29 @@ function EditStudent() {
 
                 <input
                     type="text"
-                    placeholder="Student Name"
                     value={studentName}
+                    placeholder="Student Name"
                     onChange={(e) => setStudentName(e.target.value)}
                 />
 
                 <input
                     type="number"
-                    placeholder="Roll Number"
                     value={rollno}
+                    placeholder="Roll Number"
                     onChange={(e) => setRollno(e.target.value)}
                 />
 
                 <input
                     type="email"
-                    placeholder="Email"
                     value={email}
+                    placeholder="Email"
                     onChange={(e) => setEmail(e.target.value)}
                 />
 
                 <input
                     type="text"
-                    placeholder="Phone Number"
                     value={phone}
+                    placeholder="Phone"
                     onChange={(e) => setPhone(e.target.value)}
                 />
 
@@ -156,8 +173,8 @@ function EditStudent() {
                 <input
                     type="number"
                     step="0.01"
-                    placeholder="CGPA"
                     value={cgpa}
+                    placeholder="CGPA"
                     onChange={(e) => setCgpa(e.target.value)}
                 />
 
@@ -171,6 +188,36 @@ function EditStudent() {
                     <option value="3">3rd Year</option>
                     <option value="4">4th Year</option>
                 </select>
+
+                {preview && (
+                    <img
+                        src={preview}
+                        alt="Preview"
+                        width="120"
+                        height="120"
+                        style={{
+                            objectFit: "cover",
+                            borderRadius: "10px",
+                            marginBottom: "10px",
+                        }}
+                    />
+                )}
+
+                <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+
+                        const file = e.target.files[0];
+
+                        setImage(file);
+
+                        if (file) {
+                            setPreview(URL.createObjectURL(file));
+                        }
+
+                    }}
+                />
 
                 <div className="buttons">
 
@@ -195,7 +242,6 @@ function EditStudent() {
         </div>
 
     );
-
 }
 
 export default EditStudent;
