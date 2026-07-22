@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../../api/api";
 import "./Register.css";
@@ -8,6 +8,10 @@ function Register() {
     const navigate = useNavigate();
     const { id } = useParams();
 
+    const fileRef = useRef(null);
+
+    const [student, setStudent] = useState(null);
+
     const [studentName, setStudentName] = useState("");
     const [rollno, setRollno] = useState("");
     const [email, setEmail] = useState("");
@@ -15,15 +19,14 @@ function Register() {
     const [branch, setBranch] = useState("");
     const [cgpa, setCgpa] = useState("");
     const [year, setYear] = useState("");
+    const [image, setImage] = useState(null);
 
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-
         if (id) {
             fetchStudent();
         }
-
     }, [id]);
 
     async function fetchStudent() {
@@ -32,20 +35,21 @@ function Register() {
 
             const response = await api.get(`/students/${id}`);
 
-            const student = response.data.student;
+            const data = response.data.student;
 
-            setStudentName(student.studentName);
-            setRollno(student.rollno);
-            setEmail(student.email);
-            setPhone(student.phone);
-            setBranch(student.branch);
-            setCgpa(student.cgpa);
-            setYear(student.year);
+            setStudent(data);
+
+            setStudentName(data.studentName);
+            setRollno(data.rollno);
+            setEmail(data.email);
+            setPhone(data.phone);
+            setBranch(data.branch);
+            setCgpa(data.cgpa);
+            setYear(data.year);
 
         } catch (error) {
 
             console.log(error);
-
             alert("Failed to load student");
 
         }
@@ -69,33 +73,53 @@ function Register() {
             return;
         }
 
-        const student = {
-            studentName,
-            rollno: Number(rollno),
-            email,
-            phone,
-            branch,
-            cgpa: Number(cgpa),
-            year: Number(year),
-        };
+        const formData = new FormData();
+
+        formData.append("studentName", studentName);
+        formData.append("rollno", rollno);
+        formData.append("email", email);
+        formData.append("phone", phone);
+        formData.append("branch", branch);
+        formData.append("cgpa", cgpa);
+        formData.append("year", year);
+
+        if (image) {
+            formData.append("image", image);
+        }
 
         try {
 
             setLoading(true);
 
+            let response;
+
             if (id) {
 
-                const response = await api.put(`/students/${id}`, student);
-
-                alert(response.data.message);
+                response = await api.put(
+                    `/students/${id}`,
+                    formData,
+                    {
+                        headers: {
+                            "Content-Type": "multipart/form-data",
+                        },
+                    }
+                );
 
             } else {
 
-                const response = await api.post("/students", student);
-
-                alert(response.data.message);
+                response = await api.post(
+                    "/students",
+                    formData,
+                    {
+                        headers: {
+                            "Content-Type": "multipart/form-data",
+                        },
+                    }
+                );
 
             }
+
+            alert(response.data.message);
 
             navigate("/Student");
 
@@ -125,6 +149,11 @@ function Register() {
         setBranch("");
         setCgpa("");
         setYear("");
+        setImage(null);
+
+        if (fileRef.current) {
+            fileRef.current.value = "";
+        }
 
     }
 
@@ -142,43 +171,33 @@ function Register() {
                     type="text"
                     placeholder="Student Name"
                     value={studentName}
-                    onChange={(e) =>
-                        setStudentName(e.target.value)
-                    }
+                    onChange={(e) => setStudentName(e.target.value)}
                 />
 
                 <input
                     type="number"
                     placeholder="Roll Number"
                     value={rollno}
-                    onChange={(e) =>
-                        setRollno(e.target.value)
-                    }
+                    onChange={(e) => setRollno(e.target.value)}
                 />
 
                 <input
                     type="email"
                     placeholder="Email"
                     value={email}
-                    onChange={(e) =>
-                        setEmail(e.target.value)
-                    }
+                    onChange={(e) => setEmail(e.target.value)}
                 />
 
                 <input
                     type="text"
                     placeholder="Phone Number"
                     value={phone}
-                    onChange={(e) =>
-                        setPhone(e.target.value)
-                    }
+                    onChange={(e) => setPhone(e.target.value)}
                 />
 
                 <select
                     value={branch}
-                    onChange={(e) =>
-                        setBranch(e.target.value)
-                    }
+                    onChange={(e) => setBranch(e.target.value)}
                 >
                     <option value="">Select Branch</option>
                     <option value="CSE">CSE</option>
@@ -193,16 +212,12 @@ function Register() {
                     step="0.01"
                     placeholder="CGPA"
                     value={cgpa}
-                    onChange={(e) =>
-                        setCgpa(e.target.value)
-                    }
+                    onChange={(e) => setCgpa(e.target.value)}
                 />
 
                 <select
                     value={year}
-                    onChange={(e) =>
-                        setYear(e.target.value)
-                    }
+                    onChange={(e) => setYear(e.target.value)}
                 >
                     <option value="">Select Year</option>
                     <option value="1">1st Year</option>
@@ -210,6 +225,25 @@ function Register() {
                     <option value="3">3rd Year</option>
                     <option value="4">4th Year</option>
                 </select>
+
+                {id && student?.image && (
+                    <div className="preview-image">
+                        <p>Current Image</p>
+
+                        <img
+                            src={`http://localhost:8000/uploads/${student.image}`}
+                            alt="Student"
+                            width="120"
+                        />
+                    </div>
+                )}
+
+                <input
+                    ref={fileRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => setImage(e.target.files[0])}
+                />
 
                 <div className="buttons">
 
@@ -220,8 +254,8 @@ function Register() {
                         {loading
                             ? "Please Wait..."
                             : id
-                                ? "Update Student"
-                                : "Register Student"}
+                            ? "Update Student"
+                            : "Register Student"}
                     </button>
 
                     <button
@@ -238,7 +272,6 @@ function Register() {
         </div>
 
     );
-
 }
 
 export default Register;
