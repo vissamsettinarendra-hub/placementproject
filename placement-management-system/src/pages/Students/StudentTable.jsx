@@ -1,26 +1,26 @@
 import { Link } from "react-router-dom";
 import "./StudentTable.css";
 
-function StudentTable({ students, deleteStudent }) {
+function StudentTable({
+    students,
+    deleteStudent,
+    page = 1,
+    limit = 5,
+}) {
 
-    if (students.length === 0) {
-        return (
-            <h2 className="no-data">
-                No Students Found
-            </h2>
-        );
+    if (!students || students.length === 0) {
+        return <h2 className="no-data">No Students Found</h2>;
     }
 
     return (
-
         <div className="table-container">
 
             <table className="student-table">
 
                 <thead>
-
                     <tr>
                         <th>S.No</th>
+                        <th>Photo</th>
                         <th>Name</th>
                         <th>Roll No</th>
                         <th>Email</th>
@@ -30,7 +30,6 @@ function StudentTable({ students, deleteStudent }) {
                         <th>Year</th>
                         <th>Actions</th>
                     </tr>
-
                 </thead>
 
                 <tbody>
@@ -39,7 +38,16 @@ function StudentTable({ students, deleteStudent }) {
 
                         <tr key={student._id}>
 
-                            <td>{index + 1}</td>
+                            <td>{(page - 1) * limit + index + 1}</td>
+
+                            <td>
+                                <img
+                                    src={`http://localhost:8000/uploads/${student.image}`}
+                                    alt={student.studentName}
+                                    className="student-image"
+                                />
+                            </td>
+
                             <td>{student.studentName}</td>
                             <td>{student.rollno}</td>
                             <td>{student.email}</td>
@@ -51,9 +59,9 @@ function StudentTable({ students, deleteStudent }) {
                             <td className="action-buttons">
 
                                 <Link to={`/Students/${student._id}`}>
-                                <button className="view-btn">
-                                View
-                                </button>
+                                    <button className="view-btn">
+                                        View
+                                    </button>
                                 </Link>
 
                                 <Link to={`/EditStudent/${student._id}`}>
@@ -80,9 +88,7 @@ function StudentTable({ students, deleteStudent }) {
             </table>
 
         </div>
-
     );
-
 }
 
 export default StudentTable;
