@@ -1,97 +1,91 @@
-/* ==========================
-   Sidebar.css
-========================== */
+.sidebar{
 
-.sidebar {
-    width: 250px;
-    min-height: 100vh;
-    background: #1e293b;
-    color: #fff;
-    position: sticky;
-    top: 0;
-    overflow-y: auto;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+    width:240px;
+
+    min-height:calc(100vh - 70px);
+
+    background:#1e293b;
+
+    color:white;
+
 }
 
-.sidebar ul {
-    list-style: none;
-    padding: 20px 0;
-    margin: 0;
+
+
+.sidebar-logo{
+
+    padding:20px;
+
+    text-align:center;
+
+    border-bottom:1px solid #334155;
+
 }
 
-.sidebar ul a {
-    text-decoration: none;
-    color: inherit;
+
+
+.sidebar-menu{
+
+    list-style:none;
+
+    padding:20px;
+
 }
 
-.sidebar ul li {
-    display: flex;
-    align-items: center;
-    gap: 12px;
 
-    margin: 8px 12px;
-    padding: 15px 20px;
 
-    border-radius: 10px;
+.sidebar-menu a{
 
-    font-size: 16px;
-    font-weight: 500;
+    text-decoration:none;
 
-    cursor: pointer;
-    transition: all 0.3s ease;
+    color:white;
+
 }
 
-.sidebar ul li:hover {
-    background: #334155;
-    color: #38bdf8;
-    transform: translateX(5px);
+
+
+.sidebar-menu li{
+
+    padding:15px;
+
+    margin-bottom:10px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
 }
 
-.sidebar ul a.active li {
-    background: #2563eb;
-    color: #fff;
-    font-weight: 600;
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+
+
+.sidebar-menu li:hover{
+
+    background:#334155;
+
 }
 
-/* Logout */
 
-.logout {
-    margin-top: 40px;
-    color: #ff6b6b;
+
+.active-link li{
+
+    background:#2563eb;
+
 }
 
-.logout:hover {
-    background: #dc2626;
-    color: #fff;
+
+
+.logout-btn{
+
+    margin-top:20px;
+
+    background:#dc2626;
+
 }
 
-/* Scrollbar */
 
-.sidebar::-webkit-scrollbar {
-    width: 6px;
-}
 
-.sidebar::-webkit-scrollbar-thumb {
-    background: #64748b;
-    border-radius: 10px;
-}
+.logout-btn:hover{
 
-.sidebar::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-/* Responsive */
-
-@media (max-width: 768px) {
-
-    .sidebar {
-        width: 220px;
-    }
-
-    .sidebar ul li {
-        padding: 14px 18px;
-        font-size: 15px;
-    }
+    background:#b91c1c;
 
 }

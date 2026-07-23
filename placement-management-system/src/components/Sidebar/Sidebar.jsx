@@ -1,76 +1,127 @@
 import { NavLink, useNavigate } from "react-router-dom";
+
 import "./Sidebar.css";
 
-function Sidebar() {
+
+function Sidebar(){
+
 
     const navigate = useNavigate();
 
-    function handleLogout() {
+
+
+    function handleLogout(){
+
 
         const confirmLogout = window.confirm(
             "Are you sure you want to logout?"
         );
 
-        if (!confirmLogout) return;
 
-        // Remove Login Data
+        if(!confirmLogout)
+            return;
+
+
+
         localStorage.removeItem("token");
-        localStorage.removeItem("isLoggedIn");
 
-        // Redirect to Login Page
+        localStorage.removeItem("user");
+
+
+
         navigate("/Login");
 
+
     }
+
+
 
     return (
 
         <aside className="sidebar">
 
+
             <div className="sidebar-logo">
-                <h2>🎓 PMS</h2>
+
+                <h2>
+                    🎓 PMS
+                </h2>
+
             </div>
+
+
 
             <ul className="sidebar-menu">
 
-                <NavLink
-                    to="/Dashboard"
-                    className={({ isActive }) =>
-                        isActive ? "active-link" : ""
-                    }
-                >
-                    <li>🏠 Dashboard</li>
-                </NavLink>
 
                 <NavLink
-                    to="/Student"
-                    className={({ isActive }) =>
-                        isActive ? "active-link" : ""
-                    }
+                to="/Dashboard"
+                className={({isActive}) =>
+                    isActive ? "active-link" : ""
+                }
                 >
-                    <li>🎓 Students</li>
+
+                    <li>
+                        🏠 Dashboard
+                    </li>
+
+
                 </NavLink>
 
+
+
+
                 <NavLink
-                    to="/Companies"
-                    className={({ isActive }) =>
-                        isActive ? "active-link" : ""
-                    }
+                to="/Student"
+                className={({isActive}) =>
+                    isActive ? "active-link" : ""
+                }
                 >
-                    <li>🏢 Companies</li>
+
+                    <li>
+                        🎓 Students
+                    </li>
+
                 </NavLink>
+
+
+
+
+                <NavLink
+                to="/Companies"
+                className={({isActive}) =>
+                    isActive ? "active-link" : ""
+                }
+                >
+
+                    <li>
+                        🏢 Companies
+                    </li>
+
+
+                </NavLink>
+
+
+
 
                 <li
-                    className="logout-btn"
-                    onClick={handleLogout}
+                className="logout-btn"
+                onClick={handleLogout}
                 >
+
                     🚪 Logout
+
                 </li>
 
+
             </ul>
+
 
         </aside>
 
     );
+
 }
+
 
 export default Sidebar;

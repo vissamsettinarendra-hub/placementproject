@@ -13,6 +13,7 @@ const adminSchema = new mongoose.Schema(
             required: true,
             unique: true,
             lowercase: true,
+            trim: true,
         },
 
         password: {
@@ -28,4 +29,4 @@ const adminSchema = new mongoose.Schema(
 
 const Admin = mongoose.model("Admin", adminSchema);
 
-export default Admin ;
+export default Admin;

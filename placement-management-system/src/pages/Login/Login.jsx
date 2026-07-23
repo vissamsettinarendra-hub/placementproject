@@ -1,82 +1,196 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import api from "../../api/api";
+import { useNavigate, Link } from "react-router-dom";
+
+import { loginAdmin } from "../../api/api";
+
 import "./Login.css";
 
+
 function Login() {
+
+
     const navigate = useNavigate();
 
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [loading, setLoading] = useState(false);
 
-    async function handleLogin(e) {
+    const [formData, setFormData] = useState({
+
+        email: "",
+        password: "",
+
+    });
+
+
+
+    const handleChange = (e)=>{
+
+        setFormData({
+
+            ...formData,
+
+            [e.target.name]: e.target.value,
+
+        });
+
+    };
+
+
+
+
+    const handleSubmit = async(e)=>{
+
         e.preventDefault();
 
-        if (!email || !password) {
-            alert("Please enter Email and Password");
-            return;
+
+        try{
+
+
+            const response = await loginAdmin(formData);
+
+
+
+            if(response.data.success){
+
+
+                // Store JWT Token
+
+                localStorage.setItem(
+                    "token",
+                    response.data.token
+                );
+
+
+
+                // Store Admin Details
+
+                localStorage.setItem(
+                    "admin",
+                    JSON.stringify(response.data.admin)
+                );
+
+
+
+                alert(
+                    "Login Successful"
+                );
+
+
+
+                navigate("/dashboard");
+
+
+            }
+
+
+
         }
+        catch(error){
 
-        try {
-            setLoading(true);
-
-            const response = await api.post("/admin/login", {
-                email,
-                password,
-            });
-
-            localStorage.setItem("token", response.data.token);
-            localStorage.setItem("isLoggedIn", "true");
-
-            alert(response.data.message || "Login Successful");
-
-            navigate("/Dashboard", { replace: true });
-
-        } catch (error) {
-            console.log(error);
 
             alert(
+
                 error.response?.data?.message ||
-                "Invalid Email or Password"
+                "Login Failed"
+
             );
 
-        } finally {
-            setLoading(false);
+
         }
-    }
+
+
+    };
+
+
+
 
     return (
+
         <div className="login-container">
-            <form
-                className="login-form"
-                onSubmit={handleLogin}
-            >
-                <h2>Admin Login</h2>
 
-                <input
-                    type="email"
-                    placeholder="Enter Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
 
-                <input
-                    type="password"
-                    placeholder="Enter Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
+            <div className="login-box">
 
-                <button
-                    type="submit"
-                    disabled={loading}
-                >
-                    {loading ? "Logging In..." : "Login"}
-                </button>
-            </form>
+
+                <h2>
+                    Admin Login
+                </h2>
+
+
+
+
+                <form onSubmit={handleSubmit}>
+
+
+                    <input
+
+                        type="email"
+
+                        name="email"
+
+                        placeholder="Enter Email"
+
+                        value={formData.email}
+
+                        onChange={handleChange}
+
+                        required
+
+                    />
+
+
+
+                    <input
+
+                        type="password"
+
+                        name="password"
+
+                        placeholder="Enter Password"
+
+                        value={formData.password}
+
+                        onChange={handleChange}
+
+                        required
+
+                    />
+
+
+
+                    <button type="submit">
+
+                        Login
+
+                    </button>
+
+
+
+                    <p>
+
+                        Don't have an account?
+
+
+                        <Link to="/auth/register">
+
+                            Create Account
+
+                        </Link>
+
+
+                    </p>
+
+
+
+                </form>
+
+
+            </div>
+
+
         </div>
+
     );
+
 }
+
 
 export default Login;

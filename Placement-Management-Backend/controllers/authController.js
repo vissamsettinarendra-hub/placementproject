@@ -1,49 +1,226 @@
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+
 import User from "../models/User.js";
 
-export const registerUser = async (req, res) => {
-    try {
+
+// ===========================
+// Register User
+// ===========================
+
+export const registerUser = async(req,res)=>{
+
+
+    try{
+
 
         const {
             name,
             email,
             password,
-            role,
+            role
         } = req.body;
 
-        const existingUser = await User.findOne({ email });
 
-        if (existingUser) {
+
+        const existingUser = await User.findOne({
+            email
+        });
+
+
+        if(existingUser){
+
             return res.status(400).json({
-                success: false,
-                message: "User already exists",
+
+                success:false,
+                message:"Email already exists"
+
             });
+
         }
 
-        const hashedPassword = await bcrypt.hash(
-            password,
-            10
-        );
 
-        const user = await User.create({
-            name,
-            email,
-            password: hashedPassword,
-            role,
-        });
+
+        const hashedPassword =
+            await bcrypt.hash(
+                password,
+                10
+            );
+
+
+
+        const user =
+            await User.create({
+
+                name,
+
+                email,
+
+                password:hashedPassword,
+
+                role
+
+            });
+
+
 
         res.status(201).json({
-            success: true,
-            message: "User Registered Successfully",
-            user,
+
+            success:true,
+
+            message:"Registration Successful",
+
+            user
+
         });
 
-    } catch (error) {
 
-        res.status(500).json({
-            success: false,
-            message: error.message,
-        });
 
     }
+    catch(error){
+
+
+        res.status(500).json({
+
+            success:false,
+
+            message:error.message
+
+        });
+
+
+    }
+
+
+};
+
+
+
+// ===========================
+// Login User
+// ===========================
+
+export const loginUser = async(req,res)=>{
+
+
+    try{
+
+
+        const {
+
+            email,
+
+            password
+
+
+        } = req.body;
+
+
+
+        const user =
+            await User.findOne({
+                email
+            });
+
+
+
+        if(!user){
+
+
+            return res.status(400).json({
+
+                success:false,
+
+                message:"Invalid Email"
+
+            });
+
+
+        }
+
+
+
+        const match =
+            await bcrypt.compare(
+
+                password,
+
+                user.password
+
+            );
+
+
+
+        if(!match){
+
+
+            return res.status(400).json({
+
+                success:false,
+
+                message:"Invalid Password"
+
+            });
+
+
+        }
+
+
+
+
+        const token =
+            jwt.sign(
+
+                {
+
+                    id:user._id,
+
+                    role:user.role
+
+                },
+
+                process.env.JWT_SECRET,
+
+                {
+
+                    expiresIn:"1d"
+
+                }
+
+            );
+
+
+
+
+
+        res.status(200).json({
+
+            success:true,
+
+            message:"Login Successful",
+
+            token,
+
+            user
+
+        });
+
+
+
+    }
+    catch(error){
+
+
+        res.status(500).json({
+
+            success:false,
+
+            message:error.message
+
+        });
+
+
+    }
+
+
 };

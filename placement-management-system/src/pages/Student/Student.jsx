@@ -13,6 +13,7 @@ function Student() {
     const [totalPages, setTotalPages] = useState(1);
 
     const [search, setSearch] = useState("");
+    const token = localStorage.getItem("token");
 
     // Sorting
     const [sortField, setSortField] = useState("studentName");
@@ -31,7 +32,12 @@ function Student() {
             setLoading(true);
 
             const response = await api.get(
-                `/students?page=${pageNumber}&limit=${limit}&sort=${sortField}&order=${order}`
+                `/students?page=${pageNumber}&limit=${limit}&sort=${sortField}&order=${order}`,
+                {
+                    headers:{
+                        Authorization:`Bearer ${token}`
+                    }
+                }
             );
 
             setStudents(response.data.students);
@@ -64,7 +70,13 @@ function Student() {
 
         try {
 
-            const response = await api.get(`/students/search?q=${value}`);
+            const response = await api.get(`/students/search?q=${value}`,
+                {
+                    headers:{
+                        Authorization:`Bearer ${token}`
+                    }
+                }
+            );
 
             setStudents(response.data.students);
 
@@ -86,7 +98,13 @@ function Student() {
 
         try {
 
-            const response = await api.delete(`/students/${id}`);
+            const response = await api.delete(`/students/${id}`,
+                {
+                    headers:{
+                        Authorization:`Bearer ${token}`
+                    }
+                }
+            );
 
             alert(response.data.message);
 

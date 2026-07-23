@@ -7,8 +7,22 @@ import {
 
 const router = express.Router();
 
-router.post("/register", registerAdmin);
+// ==========================
+// Register Admin
+// POST /api/admin/register
+// ==========================
+router.post(
+    "/register",
+    registerAdmin
+);
 
-router.post("/login", loginAdmin);
+// ==========================
+// Login Admin
+// POST /api/admin/login
+// ==========================
+router.post(
+    "/login",
+    loginAdmin
+);
 
-export default router ;
+export default router;

@@ -15,13 +15,14 @@ export const getDashboard = async (req, res) => {
 
         const students = await Student.find();
 
-        const averageCGPA = students.length
-            ? (
-                students.reduce((sum, s) => sum + s.cgpa, 0) /
-                students.length
-            ).toFixed(2)
-            : 0;
-
+      const averageCGPA = students.length
+                    ? (
+                        students.reduce(
+                            (sum, s) => sum + Number(s.cgpa),
+                            0
+                        ) / students.length
+                    ).toFixed(2)
+                    : 0;
         res.status(200).json({
             success: true,
             dashboard: {
