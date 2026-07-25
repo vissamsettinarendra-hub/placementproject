@@ -392,7 +392,7 @@ export const searchStudents = async (req, res) => {
             .sort({ studentName: 1 });
 
         res.status(200).json({
-            success: true,
+            success: true ,
             students,
         });
 
