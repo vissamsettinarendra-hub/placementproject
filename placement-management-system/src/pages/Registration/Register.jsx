@@ -10,7 +10,7 @@ function Register() {
 
     const fileRef = useRef(null);
 
-    const [student, setStudent] = useState(null);
+    const [student, setStudent] = useState(null) ;
 
     const [studentName, setStudentName] = useState("");
     const [rollno, setRollno] = useState("");
