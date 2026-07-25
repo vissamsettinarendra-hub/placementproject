@@ -10,7 +10,7 @@ export const addCompany = async (req, res) => {
             success: true,
             message: "Company Added Successfully",
             company,
-        });
+        }) ;
 
     } catch (error) {
 
