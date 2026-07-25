@@ -24,7 +24,7 @@ export const getDashboard = async (req, res) => {
                     ).toFixed(2)
                     : 0;
         res.status(200).json({
-            success: true,
+            success: true ,
             dashboard: {
                 totalStudents,
                 totalCompanies,
