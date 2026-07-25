@@ -222,4 +222,4 @@ function Student() {
 
 }
 
-export default Student;
+export default Student ;
