@@ -36,7 +36,7 @@ function Authentication() {
 
             });
 
-            alert(response.data.message);
+            alert(response.data.message) ;
 
             setName("");
             setEmail("");
