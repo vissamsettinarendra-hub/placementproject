@@ -25,7 +25,7 @@ function Company() {
             id: 4,
             companyName: "TCS",
             ctc: "7 LPA",
-            placedStudents: 12
+            placedStudents:12
         }
     ];
 
