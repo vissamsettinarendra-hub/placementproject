@@ -117,13 +117,10 @@
     color:white;
 
 }
-
 .buttons button:first-child:hover{
 
     background:#1d4ed8;
-
 }
-
 .buttons button:last-child{
 
     background:#ef4444;
