@@ -75,13 +75,10 @@
     margin-right:8px;
 
 }
-
 .edit-btn:hover{
 
     background:#059669;
-
 }
-
 .delete-btn{
 
     background:#ef4444;
@@ -95,9 +92,7 @@
     border-radius:6px;
 
     cursor:pointer;
-
 }
-
 .delete-btn:hover{
 
     background:#dc2626;
