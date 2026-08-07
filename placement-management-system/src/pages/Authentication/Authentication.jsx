@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import {registerUser} from "../../api/api";
 
 function Authentication() {
-
     const navigate = useNavigate();
 
     const [name, setName] = useState("");
@@ -25,13 +24,9 @@ function Authentication() {
             setLoading(true);
 
             const response = await registerUser({
-
             name,
-
             email,
-
             password,
-
             role
 
             });
@@ -145,5 +140,4 @@ function Authentication() {
     );
 
 }
-
 export default Authentication;
