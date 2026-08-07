@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-
 import { loginAdmin } from "../../api/api";
-
 import "./Login.css";
 
 
@@ -191,6 +189,4 @@ function Login() {
     );
 
 }
-
-
 export default Login;
