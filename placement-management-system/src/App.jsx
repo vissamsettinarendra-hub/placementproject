@@ -15,7 +15,6 @@ import StudentDetails from "./components/StudentDetails";
 import NotFound from "./pages/Notfound/NotFound";
 import Dashboard from "./pages/Dashboard/Dashboard";
 //import ProtectedRoute from "./pages/Students/Protected.Routejsx" ;
-
 function App() {
 
     return (
@@ -105,7 +104,5 @@ function App() {
         </Routes>
 
     );
-
 }
-
 export default App;
