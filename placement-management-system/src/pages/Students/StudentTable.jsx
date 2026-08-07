@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import "./StudentTable.css";
-
 function StudentTable({
     students,
     deleteStudent,
@@ -90,5 +89,4 @@ function StudentTable({
         </div>
     );
 }
-
 export default StudentTable;
