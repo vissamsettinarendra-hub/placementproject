@@ -1,5 +1,4 @@
 import CompanyTable from "./CompanyTable";
-
 function Company() {
 
     const companies = [
@@ -61,5 +60,7 @@ function Company() {
         </>
         
     );
+
 }
+
 export default Company;
