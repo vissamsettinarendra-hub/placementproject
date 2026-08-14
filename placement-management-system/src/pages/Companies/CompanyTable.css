@@ -1,7 +1,6 @@
 /* ==========================
    CompanyTable.css
 ========================== */
-
 table {
     width: 100%;
     margin-top: 25px;
@@ -11,7 +10,6 @@ table {
     overflow: hidden;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
-
 thead {
     background: #1e3a8a ;
 }
