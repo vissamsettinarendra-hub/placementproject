@@ -132,15 +132,12 @@
     cursor:pointer;
     font-size:14px;
 }
-
 .view-btn{
     background:#0ea5e9;
 }
-
 .edit-btn{
     background:#f59e0b;
 }
-
 .delete-btn{
     background:#ef4444;
 }
