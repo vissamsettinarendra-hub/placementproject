@@ -101,7 +101,6 @@ export const updateCompany = async (req, res) => {
     }
 
 };
-
 export const deleteCompany = async (req, res) => {
 
     try {
@@ -121,5 +120,4 @@ export const deleteCompany = async (req, res) => {
         }) ;
 
     }
-
 };
