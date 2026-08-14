@@ -1,5 +1,6 @@
 import "./CompanyTable.css";
 
+
 function CompanyTable({ companies }) {
 
     return (
@@ -47,4 +48,5 @@ function CompanyTable({ companies }) {
 
     ) ;
 }
+
 export default CompanyTable;
