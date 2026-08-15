@@ -1,5 +1,4 @@
 import Company from "../models/Company.js";
-
 export const addCompany = async (req, res) => {
 
     try {
@@ -101,6 +100,7 @@ export const updateCompany = async (req, res) => {
     }
 
 };
+
 export const deleteCompany = async (req, res) => {
 
     try {
