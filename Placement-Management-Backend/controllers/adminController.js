@@ -57,6 +57,8 @@ export const registerAdmin = async (req, res) => {
 
 };
 
+
+
 // =========================
 // Login Admin
 // =========================
@@ -121,4 +123,5 @@ export const loginAdmin = async (req, res) => {
         });
 
     }
+
 };
