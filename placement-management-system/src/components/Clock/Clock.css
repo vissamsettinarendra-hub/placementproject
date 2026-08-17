@@ -1,7 +1,6 @@
 /* ==========================
    Clock.css
 ========================== */
-
 .clock {
     width: 280px;
     margin: 20px auto 35px;
@@ -40,5 +39,4 @@
     .clock h2:last-child {
         font-size: 28px;
     }
-
 }
