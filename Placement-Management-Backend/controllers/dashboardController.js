@@ -1,7 +1,5 @@
 import Student from "../models/Student.js";
 import Company from "../models/Company.js" ;
-
-
 export const getDashboard = async (req, res) => {
 
     try {
