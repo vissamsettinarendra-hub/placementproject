@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
 
-
 export const auth = (req, res, next) => {
 
     try {
@@ -48,5 +47,4 @@ export const auth = (req, res, next) => {
 
 
     }
-
 };
