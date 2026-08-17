@@ -334,7 +334,6 @@ export const deleteStudent = async (req, res) => {
     }
 
 };
-
 // =======================
 // Search Students
 // =======================
