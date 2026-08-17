@@ -75,7 +75,6 @@
 }
 
 /* Cards */
-
 .cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
@@ -128,7 +127,6 @@
 }
 
 /* Loading */
-
 .loading {
     display: flex;
     justify-content: center;
@@ -162,4 +160,5 @@
     .name-btn {
         width: 100%;
     }
+
 }
