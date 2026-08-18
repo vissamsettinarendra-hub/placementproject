@@ -54,11 +54,9 @@
     outline: none;
     font-size: 15px;
 }
-
 .name-input:focus {
     border-color: #2563eb;
 }
-
 .name-btn {
     padding: 12px 22px;
     border: none;
