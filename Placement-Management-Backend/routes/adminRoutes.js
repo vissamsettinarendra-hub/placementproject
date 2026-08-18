@@ -7,6 +7,7 @@ import {
 
 const router = express.Router();
 
+
 // ==========================
 // Register Admin
 // POST /api/admin/register
@@ -15,6 +16,7 @@ router.post(
     "/register",
     registerAdmin
 );
+
 
 // ==========================
 // Login Admin
