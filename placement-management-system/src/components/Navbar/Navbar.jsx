@@ -1,5 +1,4 @@
 import "./Navbar.css";
-
 function Navbar({ name = "Admin" }) {
 
     return (
@@ -30,5 +29,4 @@ function Navbar({ name = "Admin" }) {
     );
 
 }
-
 export default Navbar;
