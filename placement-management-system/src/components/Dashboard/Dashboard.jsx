@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
-
 import api from "../../api/api";
-
 import Clock from "../Clock/Clock";
-
 import "./Dashboard.css";
 
 function Dashboard() {
