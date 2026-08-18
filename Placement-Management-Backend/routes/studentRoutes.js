@@ -77,6 +77,4 @@ router.delete(
     auth,
     deleteStudent
 );
-
-
 export default router;
