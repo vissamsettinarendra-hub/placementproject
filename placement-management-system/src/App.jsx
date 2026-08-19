@@ -1,7 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 
 import Login from "./pages/Login/Login";
+
 import Register from "./pages/Registration/Register";
+
 import Authentication from "./pages/Authentication/Authentication";
 
 // import Dashboard from "./components/Dashboard/Dashboard";
