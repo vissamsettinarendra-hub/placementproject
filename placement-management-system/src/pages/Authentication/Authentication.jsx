@@ -1,5 +1,7 @@
 import { useState } from "react";
+
 import { Link, useNavigate } from "react-router-dom";
+
 import {registerUser} from "../../api/api";
 
 function Authentication() {
@@ -52,9 +54,7 @@ function Authentication() {
             setLoading(false);
 
         }
-
     }
-
     return (
 
         <div className="auth-register">
