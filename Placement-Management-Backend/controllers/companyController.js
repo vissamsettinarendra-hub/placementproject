@@ -1,6 +1,4 @@
 import Company from "../models/Company.js";
-
-
 export const addCompany = async (req, res) => {
 
     try {
