@@ -10,7 +10,6 @@ function StudentTable({
     if (!students || students.length === 0) {
         return <h2 className="no-data">No Students Found</h2>;
     }
-
     return (
         <div className="table-container">
 
