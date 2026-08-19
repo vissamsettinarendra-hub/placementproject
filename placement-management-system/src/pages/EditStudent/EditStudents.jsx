@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
+
 import { useNavigate, useParams } from "react-router-dom";
+
 import api from "../../api/api";
+
 import "../Registration/Register.css";
 
 function EditStudent() {
