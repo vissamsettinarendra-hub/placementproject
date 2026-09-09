@@ -50,3 +50,5 @@ function CompanyTable({ companies }) {
 }
 
 export default CompanyTable;
+
+
